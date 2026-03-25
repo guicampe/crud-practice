@@ -1,14 +1,9 @@
 <script setup>
-    import { ref } from "vue";
-    
-    const isLogin = ref(true);
+import { ref } from "vue";
+import LoginForm from "@/components/auth/LoginForm.vue";
+import RegsiterForm from "@/components/auth/RegsiterForm.vue";
 
-    const name = ref("");
-    const email = ref("");
-    const password = ref("");
-
-    const handleSubmit = () => {};
-    const handleRegister = () => {};
+const isLogin = ref(true);
 </script>
 
 <template>
@@ -19,22 +14,8 @@
         </div>
 
         <div class="w-2/5 p-5 bg-gray-100 flex flex-col items-center justify-center">
-            <form @submit.prevent="handleSubmit" v-if="isLogin">
-                <input v-model="email" type="email" placeholder="E-mail" class="border border-gray-300 rounded-md p-2 w-full outline-none focus:border-indigo-500"/>
-                <input v-model="password" type="password" placeholder="Senha" class="border border-gray-300 rounded-md p-2 w-full outline-none focus:border-indigo-500 mt-3"/>
-                <button type="submit" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2 rounded-md transition-colors cursor-pointer">Entrar</button>
-            </form>
-                
-            <form @submit.prevent="handleRegister" v-else>
-                <input v-model="name" type="text" placeholder="Nome" class="border border-gray-300 rounded-md p-2 w-full outline-none focus:border-indigo-500">
-                <input v-model="email" type="email" placeholder="E-mail" class="border border-gray-300 rounded-md p-2 w-full outline-none focus:border-indigo-500 mt-3"/>
-                <input v-model="password" type="password" placeholder="Senha" class="border border-gray-300 rounded-md p-2 w-full outline-none focus:border-indigo-500 mt-3"/>
-                <button type="submit" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2 rounded-md transition-colors cursor-pointer">Cadastrar</button>
-            </form>
-            <p class="w-full text-center text-sm mt-1">
-                    Não tem conta? 
-                    <span @click="isLogin = false" class="text-indigo-600 cursor-pointer hover:underline">Cadastrar</span>
-                </p>
+            <LoginForm v-if="isLogin" @go-to-register="isLogin = false" />
+            <RegsiterForm v-else @go-to-login="isLogin = true" />
         </div>
     </main>
 </template>
