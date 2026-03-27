@@ -49,7 +49,7 @@ const handleSubmit = async () => {
 
         authStore.setToken(data.token);
     } catch (error) {
-        console.error(error);
+        credentialsError.value = "Não foi possível conectar ao servidor. Tente novamente"
     } finally {
         isLoading.value = false;
     }
