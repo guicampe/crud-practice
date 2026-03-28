@@ -1,3 +1,4 @@
+import AdminUserView from '@/views/AdminUserView.vue'
 import HomeView from '@/views/HomeView.vue'
 import UserView from '@/views/UserView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -9,9 +10,15 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView
-    }, {
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: AdminUserView
+    },
+    {
       path: "/user",
-      name: "userHome",
+      name: "user",
       component: UserView
     },
   ],

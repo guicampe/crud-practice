@@ -14,6 +14,7 @@ const credentialsError = ref("");
 const isLoading = ref(false);
 
 const handleSubmit = async () => {
+    authStore.logout();
     emailError.value = "";
     passwordError.value = "";
     credentialsError.value = "";
@@ -49,7 +50,11 @@ const handleSubmit = async () => {
         }
 
         authStore.setToken(data.token);
-        router.push("/user");
+        if (authStore.role === "admin") {
+            router.push("/admin");
+        } else {
+            router.push("/user");
+        }
     } catch (error) {
         credentialsError.value = "Não foi possível conectar ao servidor. Tente novamente"
     } finally {

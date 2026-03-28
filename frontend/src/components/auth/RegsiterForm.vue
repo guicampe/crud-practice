@@ -61,8 +61,11 @@ const handleRegister = async () => {
         authStore.setToken(data.token);
         isLoading.value = false;
         registered.value = true;
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        router.push("/user");
+        if (authStore.role === "admin") {
+            router.push("/admin");
+        } else {
+            router.push("/user");
+        }
     } catch (error) {
         credentialsError.value = "Não foi possível conectar ao servidor. Tente novamente."
     } finally {
