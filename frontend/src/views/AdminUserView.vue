@@ -1,19 +1,11 @@
 <script setup>
-import { useAuthStore } from "@/stores/auth";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
+import { useUsers } from "@/composables/useUsers";
 
-const authStore = useAuthStore();
-let users = ref([]);
+const { users, fetchUsers } = useUsers();
 
 onMounted(async () => {
-    const request = await fetch("http://localhost:3000/users/", {
-        headers: {
-            "Authorization" : `Bearer ${authStore.token}`
-        }
-    });
-
-    const response = await request.json();
-    users.value = response;
+    await fetchUsers();
 })
 </script>
 
