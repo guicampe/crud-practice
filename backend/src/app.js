@@ -4,6 +4,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middlewares/errorHandler");
+const gradesRoutes = require("./routes/gradesRoutes");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/ping", (req, res) => {
 
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
+app.use("grades", gradesRoutes);
 
 app.use(errorHandler);
 
