@@ -1,22 +1,14 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
+import { onMounted } from "vue";
+import { useUser } from "@/composables/useUser";
+import { useGrades } from "@/composables/useGrades";
 
-const authStore = useAuthStore();
-let user = ref(null);
+const { user, fetchUser } = useUser();
+const { grade, fetchGrades } = useGrades();
 
 onMounted(async () => {
-    if (!authStore.token) return;
-
-    user.value = null;
-
-    const request = await fetch(`http://localhost:3000/users/${authStore.id}`, {
-        headers: {
-            "Authorization": `Bearer ${authStore.token}`
-        }
-    });
-    const data = await request.json();
-    user.value = data;
+    await fetchUser();
+    await fetchGrades();
 })
 </script>
 
@@ -24,4 +16,9 @@ onMounted(async () => {
     <p>Você é um USER</p>
     <h1>Em construção...</h1>
     <p>Bem vindo(a), {{ user?.name }}, ID: {{ user?.id }}</p>
+    <p>Nota 1 - {{ grade?.grade1 }}</p>
+    <p>Nota 2 - {{ grade?.grade2 }}</p>
+    <p>Média - {{ grade?.average }}</p>
+    <p>Faltas - {{ grade?.absences }}</p>
+    <p>Presença - {{ grade?.attendance }}%</p>
 </template>

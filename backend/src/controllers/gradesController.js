@@ -80,7 +80,7 @@ const getMyGrades = async (req, res, next) => {
         const userId = req.user.id;
 
         const result = await pool.query(
-            "SELECT grade1, grade2, average, total_classes, absences FROM grades WHERE user_id = $1",
+            "SELECT grade1, grade2, average, total_classes, absences, attendance FROM grades WHERE user_id = $1",
             [userId]
         );
 
