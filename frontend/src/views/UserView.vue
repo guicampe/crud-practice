@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { useUser } from "@/composables/useUser";
 import { useGrades } from "@/composables/useGrades";
+import UserAppHeader from "@/components/layout/UserAppHeader.vue";
 
 const { user, fetchUser } = useUser();
 const { grade, fetchGrades } = useGrades();
@@ -13,9 +14,10 @@ onMounted(async () => {
 </script>
 
 <template>
-    <p>Você é um USER</p>
-    <h1>Em construção...</h1>
-    <p>Bem vindo(a), {{ user?.name }}, ID: {{ user?.id }}</p>
+    <UserAppHeader 
+        :userName="user?.name"
+        :userRa="user?.id"
+    />
     <p>Nota 1 - {{ grade?.grade1 }}</p>
     <p>Nota 2 - {{ grade?.grade2 }}</p>
     <p>Média - {{ grade?.average }}</p>
