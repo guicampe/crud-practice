@@ -1,6 +1,7 @@
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { verifyRowsLength } = require("../utils/verifyRowsLength");
 
 const register = async (req, res, next) => {
     try {
@@ -28,9 +29,7 @@ const login = async (req, res, next) => {
             [email]
         );
 
-        if (result.rows.length === 0) {
-            return res.status(401).json({ message: "Credenciais inválidas" });
-        }
+        if (verifyRowsLength(result.rows, res, 401, "Credenciais inválidas")) return;
         
         const user = result.rows[0];
 

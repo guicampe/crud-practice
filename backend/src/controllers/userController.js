@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const { verifyRowsLength } = require("../utils/verifyRowsLength");
 
 const getAllUsers = async (req, res, next) => {
     try {
@@ -19,9 +20,7 @@ const getUserById = async (req, res, next) => {
             [id]
         );
 
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "Usuário não encontrado" });
-        }
+        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado")) return;
 
         res.status(200).json(result.rows[0]);
     } catch (error) {
@@ -39,9 +38,7 @@ const updateUser = async (req, res, next) => {
             [name, email, id]
         );
 
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "Usuário não encontrado" });
-        }
+        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado"));
 
         res.status(200).json(result.rows[0]);
     } catch (error) {
@@ -58,9 +55,7 @@ const deleteUser = async (req, res, next) => {
             [id]
         );
 
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "Usuário não encontrado" });
-        }
+        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado"));
 
         res.status(204).send();
     } catch (error) {
