@@ -5,13 +5,13 @@ const getAllUsers = async (req, res, next) => {
     try {
         const result = await pool.query(`
             SELECT 
-            users.id, users.name, users.email, 
-            grades.grade1, grades.grade2, grades.average, 
-            grades.total_classes, grades.absences, grades.attendance FROM users 
-            LEFT JOIN grades ON grades.user_id = users.id 
+            users.id, users.name, users.email,
+            grades.grade1, grades.grade2, grades.average,
+            grades.total_classes, grades.absences, grades.attendance
+            FROM users
+            LEFT JOIN grades ON grades.user_id = users.id
             ORDER BY users.name ASC
-        `);
-            
+        `)
 
         res.status(200).json(result.rows);
     } catch (error) {
