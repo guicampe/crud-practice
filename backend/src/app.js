@@ -5,7 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 const gradesRoutes = require("./routes/gradesRoutes");
-const subjectRoutes = require("./routes/subjectsRoutes");
+const subjectsRoutes = require("./routes/subjectsRoutes");
 
 const app = express();
 
