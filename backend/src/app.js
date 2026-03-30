@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 const gradesRoutes = require("./routes/gradesRoutes");
+const subjectRoutes = require("./routes/subjectsRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/ping", (req, res) => {
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/grades", gradesRoutes);
+app.use("/subjects", subjectsRoutes);
 
 app.use(errorHandler);
 
