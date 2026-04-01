@@ -1,5 +1,4 @@
 const pool = require("../config/db");
-const { pushIfDefined } = require("../utils/pushIfDefined");
 const { verifyRowsLength } = require("../utils/verifyRowsLength");
 const { resolveValue } = require("../utils/resolveValue");
 const { isValueValid } = require("../utils/isValueValid");
@@ -34,6 +33,7 @@ const getMyGrades = async (req, res, next) => {
             FROM grades 
             JOIN subjects ON grades.subject_id = subjects.id
             WHERE user_id = $1
+            ORDER BY subject_name ASC
             `, [userId]
         );
 
