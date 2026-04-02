@@ -13,11 +13,6 @@ const register = async (req, res, next) => {
             'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
             [name, email, hashedPassword]
         )
-        
-        await pool.query(
-            "INSERT INTO grades (user_id) VALUES ($1)",
-            [result.rows[0].id]
-        )
 
         const token = jwt.sign(
             { id: result.rows[0].id, email: result.rows[0].email, role: result.rows[0].role },
