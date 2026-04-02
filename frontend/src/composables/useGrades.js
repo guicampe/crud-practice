@@ -3,12 +3,12 @@ import { useAuthStore } from "@/stores/auth";
 
 export const useGrades = () => {
     const authStore = useAuthStore();
-    const grade = ref(null);
+    const grades = ref(null);
 
     const fetchGrades = async () => {
         if (!authStore.token) return;
 
-        grade.value = null;
+        grades.value = null;
 
         const request = await fetch("http://localhost:3000/grades/me", {
             headers: {
@@ -17,8 +17,8 @@ export const useGrades = () => {
         })
 
         const data = await request.json();
-        grade.value = data;
+        grades.value = data;
     }
 
-    return { grade, fetchGrades }
+    return { grades, fetchGrades }
 }

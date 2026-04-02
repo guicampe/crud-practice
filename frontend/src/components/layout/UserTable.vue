@@ -1,11 +1,9 @@
 <script setup>
-import { onMounted } from "vue";
-import { useGrades } from "@/composables/useGrades";
-
-const { grade, fetchGrades } = useGrades();
-
-onMounted(async () => {
-    await fetchGrades();
+defineProps({
+    grades: {
+        type: Array,
+        default: () => []
+    }
 })
 </script>
 
@@ -16,19 +14,23 @@ onMounted(async () => {
                 <th>Matéria</th>
                 <th>Nota 01</th>
                 <th>Nota 02</th>
-                <th>Média</th>
                 <th>Faltas</th>
                 <th>Presença</th>
+                <th>Média</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="subject in grade" class="text-center text-gray-800 h-10 odd:bg-white even:bg-gray-100">
-                <td>{{ subject.subject_name }}</td>
-                <td>{{ subject.grade1 ?? "-" }}</td>
-                <td>{{ subject.grade2 ?? "-" }}</td>
-                <td class="font-bold">{{ subject.average ?? "-" }}</td>
-                <td>{{ subject.absences ?? "-" }}</td>
-                <td class="font-bold">{{ subject.attendance ?? "-" }}%</td>
+            <tr 
+                v-for="grade in grades"
+                :key="grade.subject_id"
+                class="text-center text-gray-800 h-10 odd:bg-white even:bg-gray-100"
+            >
+                <td>{{ grade.subject_name }}</td>
+                <td>{{ grade.grade1 }}</td>
+                <td>{{ grade.grade2 }}</td>
+                <td>{{ grade.absences }}</td>
+                <td class="font-bold">{{ grade.attendance }}%</td>
+                <td class="font-bold">{{ grade.average }}</td>
             </tr>
         </tbody>
     </table>
