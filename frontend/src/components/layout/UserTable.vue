@@ -8,7 +8,8 @@ defineProps({
 </script>
 
 <template>
-    <table class="bg-white p-6 mb-4 mt-4 w-9/10 mx-auto shadow-md">
+    <table v-if="grades.length > 0"
+    class="bg-white p-6 mb-4 mt-4 w-9/10 mx-auto shadow-md">
         <thead class="bg-indigo-400 h-12 text-gray-200 text-lg">
             <tr>
                 <th>Matéria</th>
@@ -29,9 +30,10 @@ defineProps({
                 <td>{{ grade.grade1 }}</td>
                 <td>{{ grade.grade2 }}</td>
                 <td>{{ grade.absences }}</td>
-                <td class="font-bold">{{ grade.attendance }}%</td>
+                <td class="font-bold">{{ grade.attendance != null ? grade.attendance + "%" : "-" }}</td>
                 <td class="font-bold">{{ grade.average }}</td>
             </tr>
         </tbody>
     </table>
+    <p v-else class="text-center text-2xl text-gray-700">Nenhum dado cadastrado</p>
 </template>
