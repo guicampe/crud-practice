@@ -4,6 +4,7 @@ import { useUser } from "@/composables/useUser";
 import { useGrades } from "@/composables/useGrades";
 import UserAppHeader from "@/components/layout/UserAppHeader.vue";
 import UserTable from "@/components/layout/UserTable.vue";
+import Logout from "@/components/layout/Logout.vue";
 
 const { user, fetchUser } = useUser();
 const { grades, fetchGrades } = useGrades();
@@ -15,6 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
+    <Logout />
     <UserAppHeader 
         :userName="user?.name"
         :userRa="user?.id"
