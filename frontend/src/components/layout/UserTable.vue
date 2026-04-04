@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <table v-if="grades.length > 0"
+    <table v-if="grades?.length !== 0"
     class="bg-white p-6 mb-4 mt-4 w-9/10 mx-auto shadow-md">
         <thead class="bg-indigo-400 h-12 text-gray-200 text-lg">
             <tr>
