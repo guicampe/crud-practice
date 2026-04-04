@@ -1,35 +1,20 @@
 <script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const goTo = (path) => {
-    router.push(path);
-}
+import NavCard from '@/components/ui/NavCard.vue';
 
 defineProps({
-    userName: String,
+    userName: String
 })
 </script>
 
 <template>
-    <p class="ml-4 mb-10 text-2xl text-gray-800">
-        Bem vindo de volta, 
-        <span>{{ userName }}</span>
-    </p>
-    <main class="flex justify-around p-2 w-4/5 mx-auto">
-        <div
-            @click="goTo('/admin/users')"
-            class="bg-blue-500 w-1/4 h-24 flex justify-center items-center rounded-md shadow-sm text-gray-300 font-bold text-3xl cursor-pointer duration-250 ease hover:bg-blue-400"
-        >
-            <p>Alunos</p>
-        </div>
-
-        <div 
-            @click="goTo('/admin/subjects')"
-            class="bg-blue-500 w-1/4 h-24 flex justify-center items-center rounded-md shadow-sm text-gray-300 font-bold text-3xl cursor-pointer duration-250 ease hover:bg-blue-400"
-        >
-            <p>Matérias</p>
-        </div>
+    <main class="border border-gray-400 mx-auto w-5/6 rounded-md">
+        <p class="mb-10 p-2 text-2xl text-gray-800 bg-blue-300 w-full rounded-t-md shadow-lg">
+            Bem vindo de volta,
+            <span>{{ userName }}</span>
+        </p>
+        <nav class="flex justify-between p-2 w-4/5 mx-auto">
+            <NavCard label="Alunos" path="/admin/users" />
+            <NavCard label="Matérias" path="/admin/subjects" />
+        </nav>
     </main>
 </template>
