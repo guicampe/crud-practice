@@ -3,12 +3,8 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const goToUsers = () => {
-    router.push("/admin/users");
-}
-
-const goToSubjects = () => {
-    router.push("admin/subjects");
+const goTo = (path) => {
+    router.push(path);
 }
 
 defineProps({
@@ -23,14 +19,14 @@ defineProps({
     </p>
     <main class="flex justify-around p-2 w-4/5 mx-auto">
         <div
-            @click="goToUsers"
+            @click="goTo('/admin/users')"
             class="bg-blue-500 w-1/4 h-24 flex justify-center items-center rounded-md shadow-sm text-gray-300 font-bold text-3xl cursor-pointer duration-250 ease hover:bg-blue-400"
         >
             <p>Alunos</p>
         </div>
 
         <div 
-            @click="goToSubjects"
+            @click="goTo('/admin/subjects')"
             class="bg-blue-500 w-1/4 h-24 flex justify-center items-center rounded-md shadow-sm text-gray-300 font-bold text-3xl cursor-pointer duration-250 ease hover:bg-blue-400"
         >
             <p>Matérias</p>
