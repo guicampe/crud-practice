@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { useUsers } from "@/composables/useUsers";
 import DataTable from "./DataTable.vue";
+import Back from "../layout/Back.vue";
 
 const { users, fetchUsers } = useUsers();
 
@@ -11,9 +12,12 @@ onMounted(async () => {
 </script>
 
 <template>
-    <DataTable
-        title="Alunos"
-        :items="users"
-        :columns="[{ label: 'Nome', key: 'name' }, { label: 'Email', key: 'email' }]"
-    />
+        <div class="h-screen bg-indigo-100">
+            <Back />
+            <DataTable
+                title="Alunos"
+                :items="users"
+                :columns="[{ label: 'Nome', key: 'name' }, { label: 'Email', key: 'email' }]"
+            />
+        </div>
 </template>

@@ -13,7 +13,8 @@ defineProps({
 </script>
 
 <template>
-    <main class="bg-indigo-100 h-screen flex flex-col items-center p-10">
+    <main class="bg-indigo-100 flex flex-col items-center p-10"
+    >
         <p 
             class="text-gray-800 text-6xl font-bold mb-10 text-shadow-lg"
         >{{ title }}</p>

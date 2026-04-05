@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { useSubjects } from "@/composables/useSubjects";
 import DataTable from "./DataTable.vue";
+import Back from "../layout/Back.vue";
 
 const { subjects, fetchSubjects } = useSubjects();
 
@@ -11,9 +12,12 @@ onMounted(async () => {
 </script>
 
 <template>
-    <DataTable
-        title="Matérias"
-        :items="subjects",
-        :columns="[{ label: 'Matéria', key:'name' }]"
-    />
+    <div class="h-screen bg-indigo-100">
+        <Back />
+        <DataTable
+            title="Matérias"
+            :items="subjects",
+            :columns="[{ label: 'Matéria', key:'name' }]"
+        />
+    </div>
 </template>
