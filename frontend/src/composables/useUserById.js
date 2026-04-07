@@ -10,12 +10,11 @@ export const useUserById = () => {
 
         userById.value = null;
 
-        const request = await fetch(`http://localhost:3000/users/${id}`, {
+        const request = await fetch(`http://localhost:3000/admin/${id}`, {
             headers: {
                 "Authorization": `Bearer ${authStore.token}`
             }
         })
-
         const data = await request.json();
 
         userById.value = data;

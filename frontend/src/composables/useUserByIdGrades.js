@@ -8,16 +8,14 @@ export const useUserByIdGrades = () => {
     const fetchSubjectsById = async (id) => {
         if (!authStore.token) return;
 
-        subjects.value = null;
-
-        const request = await fetch(`http://localhost:3000/grades/${id}`, {
+        const request = await fetch(`http://localhost:3000/admin/grades/${id}`, {
             headers: {
                 "Authorization": `Bearer ${authStore.token}`
             }
         })
 
         const data = await request.json();
-        subjects.value = data;
+        subjects.value = Array.isArray(data) ? data : [];
     }
 
     return { subjects, fetchSubjectsById }

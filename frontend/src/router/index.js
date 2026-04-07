@@ -17,29 +17,60 @@ const router = createRouter({
     {
       path: "/admin",
       name: "admin",
-      component: AdminUserView
+      component: AdminUserView,
+      meta: { requiresAdmin: true }
     },
     {
       path: "/admin/users",
       name: "adminUsers",
-      component: Users
-    },
-    {
-      path: "/admin/:id",
-      name: "adminUser",
-      component: User
+      component: Users,
+      meta: { requiresAdmin: true }
     },
     {
       path: "/admin/subjects",
       name: "subjects",
-      component: Subjects
+      component: Subjects,
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/:id",
+      name: "adminUser",
+      component: User,
+      meta: { requiresAdmin: true }
     },
     {
       path: "/user",
       name: "user",
-      component: UserView
+      component: UserView,
+      meta: { requiresAuth: true }
     },
   ],
+})
+
+router.beforeEach((to) => {
+  const token = localStorage.getItem("token");
+
+  let role = null;
+  try {
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      role = payload.role;
+    }
+  } catch (e) {
+    localStorage.removeItem("token");
+  }
+
+  if (to.meta.requiresAdmin) {
+    if (!token || role !== "admin") {
+      return "/";
+    }
+  }
+
+  if (to.meta.requiresAuth) {
+    if (!token) {
+      return "/";
+    }
+  }
 })
 
 export default router

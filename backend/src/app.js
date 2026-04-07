@@ -3,9 +3,10 @@ const helmet = require("helmet");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-const errorHandler = require("./middlewares/errorHandler");
+const adminRoutes = require("./routes/adminRoutes");
 const gradesRoutes = require("./routes/gradesRoutes");
 const subjectsRoutes = require("./routes/subjectsRoutes");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/ping", (req, res) => {
 
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
 app.use("/grades", gradesRoutes);
 app.use("/subjects", subjectsRoutes);
 
