@@ -54,6 +54,12 @@ const router = createRouter({
       name: "unauthenticated",
       component: () => import("@/views/UnauthenticatedView.vue")
     },
+    {
+      // Tem que ser a última rota, não alterar
+      path: "/:pathMatch(.*)*",
+      name: "notFound",
+      component: () => import("@/views/NotFoundView.vue")
+    }
   ],
 })
 
