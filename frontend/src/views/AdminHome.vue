@@ -7,14 +7,14 @@ defineProps({
 </script>
 
 <template>
-    <main class="border border-gray-400 mx-auto w-5/6 h-64 rounded-md">
+    <main class="border border-gray-400 mx-auto w-5/6 rounded-md pb-4">
         <p class="mb-10 p-2 text-2xl text-gray-800 bg-blue-300 w-full rounded-t-md shadow-lg">
             Bem vindo de volta,
             <span>{{ userName }}</span>
         </p>
         <nav class="flex justify-between p-2 w-4/5 mx-auto">
-            <NavCard label="Alunos" path="/admin/users" />
-            <NavCard label="Matérias" path="/admin/subjects" />
+            <NavCard label="Alunos" path="/admin/users" icon="group" padding="p-6" />
+            <NavCard label="Matérias" path="/admin/subjects" icon="assignment" padding="p-6" />
         </nav>
     </main>
 </template>

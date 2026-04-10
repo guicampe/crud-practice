@@ -1,8 +1,9 @@
 <script setup>
 import { onMounted } from "vue";
 import { useSubjects } from "@/composables/useSubjects";
-import DataTable from "./DataTable.vue";
-import Back from "../layout/Back.vue";
+import Back from "@/components/layout/Back.vue";
+import DataTable from "@/components/admin/DataTable.vue";
+
 
 const { subjects, fetchSubjects } = useSubjects();
 

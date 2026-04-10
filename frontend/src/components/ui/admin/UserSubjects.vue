@@ -1,4 +1,6 @@
 <script setup>
+import NavCard from '../NavCard.vue';
+
 defineProps({
     subjects: {
         type: Array,
@@ -9,6 +11,7 @@ defineProps({
 
 <template>
     <div class="p-10">
+        <h1 class="text-gray-800 text-4xl font-bold mb-10 text-shadow-md">Boletim</h1>
         <div class="flex flex-col gap-1 border-2 border-indigo-400 p-2 bg-gray-200 rounded-md shadow-md">
             <table v-if="subjects?.length > 0" class="shadow-md">
                 <thead class="bg-indigo-400 h-12 text-gray-200 text-lg">
@@ -25,12 +28,7 @@ defineProps({
                     <tr v-for="subject in subjects" :key="subject.subject_id"
                         class="text-center text-gray-800 
                         h-10 odd:bg-white even:bg-gray-100">
-                        <td class="text-left">
-                            <span class="material-icons 
-                            pl-5 pr-5 cursor-pointer
-                            text-red-500
-                            hover:scale-120
-                            ">delete</span>
+                        <td class="text-left p-2">
                             {{ subject.subject_name }}
                         </td>
                         <td>{{ subject.grade1 }}</td>
@@ -42,6 +40,7 @@ defineProps({
                 </tbody>
             </table>
             <p v-else class="text-gray-800 font-bold text-2xl">Ainda não há matérias cadastradas</p>
+            <NavCard label="Adicionar Matéria" icon="assignment_add" padding="p-1" class="text-xl mt-1" />
         </div>
     </div>
 </template>

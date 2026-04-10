@@ -2,9 +2,9 @@ import AdminUserView from '@/views/AdminUserView.vue'
 import HomeView from '@/views/HomeView.vue'
 import UserView from '@/views/UserView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import Users from '@/components/admin/Users.vue'
-import Subjects from '@/components/admin/Subjects.vue'
-import User from '@/components/admin/User.vue'
+import AdminUsers from '@/views/AdminUsers.vue'
+import AdminSubjects from '@/views/AdminSubjects.vue'
+import AdminUser from '@/views/AdminUser.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,19 +23,19 @@ const router = createRouter({
     {
       path: "/admin/users",
       name: "adminUsers",
-      component: Users,
+      component: AdminUsers,
       meta: { requiresAdmin: true }
     },
     {
       path: "/admin/subjects",
       name: "subjects",
-      component: Subjects,
+      component: AdminSubjects,
       meta: { requiresAdmin: true }
     },
     {
       path: "/admin/:id",
       name: "adminUser",
-      component: User,
+      component: AdminUser,
       meta: { requiresAdmin: true }
     },
     {

@@ -3,9 +3,9 @@ import { useRoute } from 'vue-router';
 import { onMounted } from 'vue';
 import { useUserById } from '@/composables/useUserById';
 import { useUserByIdGrades } from '@/composables/useUserByIdGrades';
-import Back from '../layout/Back.vue';
-import UserPersonalInfo from '../ui/admin/UserPersonalInfo.vue';
-import UserSubjects from '../ui/admin/UserSubjects.vue';
+import Back from '@/components/layout/Back.vue';
+import UserSubjects from '@/components/ui/admin/UserSubjects.vue';
+import UserPersonalInfo from '@/components/ui/admin/UserPersonalInfo.vue';
 
 const route = useRoute();
 const { userById, fetchUserById } = useUserById();
