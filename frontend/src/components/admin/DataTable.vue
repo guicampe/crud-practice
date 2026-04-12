@@ -13,7 +13,7 @@ defineProps({
     }
 })
 
-defineEmits(["row-click"])
+defineEmits(["row-click"]);
 </script>
 
 <template>
@@ -30,7 +30,7 @@ defineEmits(["row-click"])
             </li>
         </ul>
         <div class="w-full flex justify-start gap-5">
-            <NavCard label="Adicionar" icon="group_add" padding="p-3" />
+            <slot name="actions" />
         </div>
     </main>
 </template>

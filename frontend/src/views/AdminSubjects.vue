@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { useSubjects } from "@/composables/useSubjects";
 import Back from "@/components/layout/Back.vue";
 import DataTable from "@/components/admin/DataTable.vue";
+import AddSubjectInput from "@/components/admin/AddSubjectInput.vue";
 
 
 const { subjects, fetchSubjects } = useSubjects();
@@ -20,6 +21,10 @@ onMounted(async () => {
             :items="subjects",
             :columns="[{ label: 'Matéria', key:'name' }]"
             @row-click="(subject) => $router.push(`/subjects/${subject.id}`)"
-        />
+            >
+            <template #actions>
+                <AddSubjectInput @created="fetchSubjects" />
+            </template>
+        </DataTable>
     </div>
 </template>
