@@ -2,7 +2,7 @@
 import { onMounted } from "vue";
 import { useSubjects } from "@/composables/useSubjects";
 import Back from "@/components/layout/Back.vue";
-import DataTable from "@/components/admin/DataTable.vue";
+import DataList from "@/components/admin/DataList.vue";
 import AddSubjectInput from "@/components/admin/AddSubjectInput.vue";
 
 
@@ -16,15 +16,15 @@ onMounted(async () => {
 <template>
     <div class="h-screen bg-indigo-100">
         <Back />
-        <DataTable
+        <DataList
             title="Matérias"
             :items="subjects",
             :columns="[{ label: 'Matéria', key:'name' }]"
-            @row-click="(subject) => $router.push(`/subjects/${subject.id}`)"
+            @row-click="(subject) => $router.push({ name: 'subjectsById', params: { id: subject.id } })"
             >
             <template #actions>
                 <AddSubjectInput @created="fetchSubjects" />
             </template>
-        </DataTable>
+        </DataList>
     </div>
 </template>

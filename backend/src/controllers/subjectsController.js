@@ -33,6 +33,36 @@ const getMySubjects = async (req, res, next) => {
     }
 }
 
+const getSubjectsById = async (req, res, next) => {
+    try {
+        const { subjectId }  = req.params;
+
+        const result = await pool.query(`
+            SELECT
+                users.id AS user_id,
+                users.name AS user_name,
+                subjects.name AS subject_name,
+                grades.grade1,
+                grades.grade2,
+                grades.average,
+                grades.total_classes,
+                grades.absences,
+                grades.attendance
+            FROM grades
+            JOIN users ON grades.user_id = users.id
+            JOIN subjects ON grades.subject_id = subjects.id
+            WHERE grades.subject_id = $1
+            `, [subjectId]
+        );
+
+        if (verifyRowsLength(result.rows, res, 404, "Nenhuma aluno(a) encontrado(a)")) return; 
+        
+        res.status(200).json(result.rows);
+    } catch (error) {
+        next(error);
+    }
+}
+
 const createSubject = async (req, res, next) => {
     try {
         const { name } = req.body;
@@ -86,6 +116,7 @@ const deleteSubject = async (req, res, next) => {
 module.exports = {
     getAllSubjects,
     getMySubjects,
+    getSubjectsById,
     createSubject,
     updateSubject,
     deleteSubject,

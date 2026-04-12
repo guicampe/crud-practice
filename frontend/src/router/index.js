@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AdminUsers from '@/views/AdminUsers.vue'
 import AdminSubjects from '@/views/AdminSubjects.vue'
 import AdminUser from '@/views/AdminUser.vue'
+import AdminSubjectsById from '@/views/AdminSubjectsById.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,12 @@ const router = createRouter({
       path: "/admin/subjects",
       name: "subjects",
       component: AdminSubjects,
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/subjects/:id",
+      name: "subjectsById",
+      component: AdminSubjectsById,
       meta: { requiresAdmin: true }
     },
     {
