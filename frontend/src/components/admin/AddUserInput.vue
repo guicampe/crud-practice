@@ -14,6 +14,7 @@ async function handleCreate() {
     if (!userId.value)  return;
 
     await fetchAddStudent(route.params.id);
+    await fetchAvailableUsers(route.params.id);
 
     userId.value = "";
     emit("created");
@@ -31,7 +32,7 @@ onMounted(async () => {
             class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
             <option value="" disabled>Selecione um aluno</option>
-            <option v-for="user in users" :key="users.id" :value="user.id">
+            <option v-for="user in users" :key="user.id" :value="user.id">
                 {{ user.name }}
             </option>
         </select>
