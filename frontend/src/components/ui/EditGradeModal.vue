@@ -42,11 +42,6 @@ const handleConfirm = async () => {
                         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-indigo-400" />
                 </label>
                 <label class="flex flex-col gap-1 text-sm text-gray-700">
-                    Total de Aulas
-                    <input v-model="form.total_classes" type="number" min="0"
-                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-indigo-400" />
-                </label>
-                <label class="flex flex-col gap-1 text-sm text-gray-700">
                     Faltas
                     <input v-model="form.absences" type="number" min="0"
                         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-indigo-400" />
@@ -65,11 +60,13 @@ const handleConfirm = async () => {
         </div>
     </div>
 
-    <ConfirmModal
-        v-if="showConfirm"
-        message="Confirmar edição das notas?"
-        confirmLabel="Salvar"
-        @confirm="handleConfirm"
-        @cancel="showConfirm = false"
-    />
+    <Teleport to="body">
+        <ConfirmModal
+            v-if="showConfirm"
+            message="Confirmar edição das notas?"
+            confirmLabel="Salvar"
+            @confirm="handleConfirm"
+            @cancel="showConfirm = false"
+        />
+    </Teleport>
 </template>

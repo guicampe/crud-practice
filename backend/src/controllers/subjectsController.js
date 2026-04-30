@@ -4,7 +4,7 @@ const { verifyRowsLength } = require("../utils/verifyRowsLength");
 const getAllSubjects = async (req, res, next) => {
     try {
         const result = await pool.query(
-            "SELECT id, name FROM subjects ORDER BY name ASC"
+            "SELECT id, name, total_classes FROM subjects ORDER BY name ASC"
         )
 
         res.status(200).json(result.rows);
@@ -38,7 +38,7 @@ const getSubjectById = async (req, res, next) => {
         const { subjectId } = req.params;
 
         const result = await pool.query(
-            "SELECT id, name FROM subjects WHERE id = $1",
+            "SELECT id, name, total_classes FROM subjects WHERE id = $1",
             [subjectId]
         );
 
@@ -59,10 +59,10 @@ const getSubjectsById = async (req, res, next) => {
                 users.id AS user_id,
                 users.name AS user_name,
                 subjects.name AS subject_name,
+                subjects.total_classes,
                 grades.grade1,
                 grades.grade2,
                 grades.average,
-                grades.total_classes,
                 grades.absences,
                 grades.attendance
             FROM grades
@@ -100,11 +100,11 @@ const getAvailableUsers = async (req, res, next) => {
 
 const createSubject = async (req, res, next) => {
     try {
-        const { name } = req.body;
+        const { name, total_classes } = req.body;
 
         const result = await pool.query(
-            "INSERT INTO subjects (name) VALUES ($1) RETURNING id, name",
-            [name]
+            "INSERT INTO subjects (name, total_classes) VALUES ($1, $2) RETURNING id, name, total_classes",
+            [name, total_classes]
         )
 
         res.status(201).json(result.rows[0]);
@@ -133,11 +133,11 @@ const addStudentToSubject = async (req, res, next) => {
 const updateSubject = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name } = req.body;
+        const { name, total_classes } = req.body;
 
         const result = await pool.query(
-            "UPDATE subjects SET name = $1 WHERE id = $2 RETURNING id, name",
-            [name, id]
+            "UPDATE subjects SET name = $1, total_classes = $2 WHERE id = $3 RETURNING id, name, total_classes",
+            [name, total_classes, id]
         )
 
         if (verifyRowsLength(result.rows, res, 404, "Matéria não encontrada")) return;

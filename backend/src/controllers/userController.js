@@ -81,7 +81,7 @@ const updateUser = async (req, res, next) => {
             [name, email, id]
         );
 
-        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado"));
+        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado")) return;
 
         res.status(200).json(result.rows[0]);
     } catch (error) {
@@ -98,7 +98,7 @@ const deleteUser = async (req, res, next) => {
             [id]
         );
 
-        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado"));
+        if (verifyRowsLength(result.rows, res, 404, "Usuário não encontrado")) return;
 
         res.status(204).send();
     } catch (error) {

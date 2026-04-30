@@ -11,12 +11,18 @@ const emit = defineEmits(["updated", "cancel"]);
 const { fetchUpdateSubject } = useUpdateSubject();
 
 const name = ref(props.subject.name);
+const total_classes = ref(props.subject.total_classes ?? "");
 const showConfirm = ref(false);
 
 const handleConfirm = async () => {
-    await fetchUpdateSubject(props.subject.id, name.value);
-    emit("updated", { ...props.subject, name: name.value });
-    showConfirm.value = false;
+    try {
+        await fetchUpdateSubject(props.subject.id, name.value, total_classes.value);
+        emit("updated", { ...props.subject, name: name.value, total_classes: total_classes.value });
+        showConfirm.value = false;
+    } catch (error) {
+        console.error("Erro ao atualizar matéria: ", error);
+        showConfirm.value = false;
+    }
 }
 </script>
 
@@ -29,6 +35,13 @@ const handleConfirm = async () => {
                 type="text"
                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-indigo-400"
                 placeholder="Nome da matéria"
+            />
+            <input
+                v-model="total_classes"
+                type="number"
+                min="0"
+                class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-indigo-400"
+                placeholder="Total de aulas"
             />
             <div class="flex justify-end gap-3">
                 <button class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-800"

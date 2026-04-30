@@ -4,6 +4,7 @@ import { useAuthStore } from "@/stores/auth";
 export const useCreateSubject = () => {
     const authStore = useAuthStore();
     const name = ref("");
+    const total_classes = ref("");
     const loading = ref(false);
     const error = ref(null);
 
@@ -19,7 +20,7 @@ export const useCreateSubject = () => {
                     "Content-type": "application/json",
                     "Authorization": `Bearer ${authStore.token}`
                 },
-                body: JSON.stringify({ name: name.value })
+                body: JSON.stringify({ name: name.value, total_classes: total_classes.value })
             });
 
             const response = await request.json();
@@ -32,5 +33,5 @@ export const useCreateSubject = () => {
         }
     };
 
-    return { name, loading, error, fetchCreateSubject };
+    return { name, total_classes, loading, error, fetchCreateSubject };
 }
