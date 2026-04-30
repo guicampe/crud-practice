@@ -1,22 +1,20 @@
 <script setup>
 import AddSubjectToUser from '@/components/admin/AddSubjectToUser.vue';
+import EditGradeModal from '@/components/ui/EditGradeModal.vue';
+import ConfirmModal from '@/components/ui/ConfirmModal.vue';
 import { useDeleteGrade } from '@/composables/useDeleteGrade';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 const props = defineProps({
-    subjects: {
-        type: Array,
-        required: true,
-    },
-    userId: {
-        type: [String, Number],
-        required: true,
-    }
+    subjects: { type: Array, required: true },
+    userId: { type: [String, Number], required: true }
 })
 
-const emit = defineEmits(["created", "row-click", "delete-subject"]);
+const emit = defineEmits(["created"]);
 const { fetchDeleteGrade } = useDeleteGrade();
 const openMenuId = ref(null);
+const editingSubject = ref(null);
+const deletingSubjectId = ref(null);
 
 const localSubjects = ref([...props.subjects]);
 
@@ -24,19 +22,20 @@ watch(() => props.subjects, (val) => {
     localSubjects.value = [...val];
 })
 
-const handleDelete = async (subjectId) => {
-    await fetchDeleteGrade(props.userId, subjectId);
-    localSubjects.value = localSubjects.value.filter(s => s.subject_id !== subjectId);
-    emit("delete-subject", subjectId);
+const handleDelete = async () => {
+    await fetchDeleteGrade(props.userId, deletingSubjectId.value);
+    localSubjects.value = localSubjects.value.filter(s => s.subject_id !== deletingSubjectId.value);
+    deletingSubjectId.value = null;
 }
 
-onMounted(() => {
-    document.addEventListener("click", () => openMenuId.value = null);
-})
+const handleUpdated = (updated) => {
+    const index = localSubjects.value.findIndex(s => s.subject_id === updated.subject_id);
+    if (index !== -1) localSubjects.value[index] = updated;
+    editingSubject.value = null;
+}
 
-onBeforeUnmount(() => {
-    document.removeEventListener("click", () => openMenuId.value = null);
-})
+onMounted(() => document.addEventListener("click", () => openMenuId.value = null));
+onBeforeUnmount(() => document.removeEventListener("click", () => openMenuId.value = null));
 </script>
 
 <template>
@@ -56,11 +55,9 @@ onBeforeUnmount(() => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="subject in localSubjects" :key="subject.subject_id" class="text-center text-gray-800 
-                        h-10 odd:bg-white even:bg-gray-100">
-                        <td class="text-left p-2">
-                            {{ subject.subject_name }}
-                        </td>
+                    <tr v-for="subject in localSubjects" :key="subject.subject_id"
+                        class="text-center text-gray-800 h-10 odd:bg-white even:bg-gray-100">
+                        <td class="text-left p-2">{{ subject.subject_name }}</td>
                         <td>{{ subject.grade1 }}</td>
                         <td>{{ subject.grade2 }}</td>
                         <td>{{ subject.absences }}</td>
@@ -76,11 +73,11 @@ onBeforeUnmount(() => {
                                 <div v-if="openMenuId === subject.subject_id"
                                     class="absolute right-0 top-6 w-32 bg-white border rounded shadow-md z-10">
                                     <button class="w-full text-left px-3 py-2 hover:bg-gray-100"
-                                        @click.stop="$emit('row-click', subject)">
+                                        @click.stop="editingSubject = subject; openMenuId = null">
                                         Editar
                                     </button>
                                     <button class="w-full text-left px-3 py-2 text-red-500 hover:bg-red-100"
-                                        @click.stop="handleDelete(subject.subject_id)">
+                                        @click.stop="deletingSubjectId = subject.subject_id; openMenuId = null">
                                         Excluir
                                     </button>
                                 </div>
@@ -93,4 +90,21 @@ onBeforeUnmount(() => {
             <AddSubjectToUser @created="$emit('created')" class="mt-2" />
         </div>
     </div>
+
+    <EditGradeModal
+        v-if="editingSubject"
+        :subject="editingSubject"
+        :userId="userId"
+        @updated="handleUpdated"
+        @cancel="editingSubject = null"
+    />
+
+    <ConfirmModal
+        v-if="deletingSubjectId"
+        message="Tem certeza que deseja excluir esta matéria?"
+        confirmLabel="Excluir"
+        confirmClass="bg-red-500 hover:bg-red-600"
+        @confirm="handleDelete"
+        @cancel="deletingSubjectId = null"
+    />
 </template>

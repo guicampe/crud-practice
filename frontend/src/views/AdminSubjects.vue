@@ -21,6 +21,7 @@ onMounted(async () => {
             :columns="[{ label: 'Matéria', key:'name' }]"
             @row-click="(subject) => $router.push({ name: 'subjectsById', params: { id: subject.id } })"
             @delete-subject="fetchSubjects"
+            @update-subject="fetchSubjects"
             >
             <template #actions>
                 <AddSubjectInput @created="fetchSubjects" />
